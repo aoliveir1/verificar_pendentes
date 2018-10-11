@@ -16,11 +16,11 @@ print('Abrindo Google Chrome...')
 executable_path = 'C:/Plotagem/webdriver/win_7/chromedriver.exe' if platform.uname()[2] == '7' else 'C:/Plotagem/webdriver/win_xp/chromedriver.exe'
 browser = Browser('chrome', executable_path = executable_path)
 print('Acessando a página de login...')
-browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/login')
+browser.visit('https://.../impressoes/plotista/login')
 print('Efetuando login...')
 sleep(0.1)
-browser.fill('username', 'ucscampus8')
-browser.fill('password', 'Pzt2Ytn236!')
+browser.fill('username', 'username')
+browser.fill('password', 'password')
 browser.find_by_name('login_copista').click()
 print('Acessando página de pendentes...')
 
@@ -33,7 +33,7 @@ while True:
 
 
     # Caso algum protocolo tenha sido cancelado, procurar pelo arquivo na pasta Downloads e mover ele para Downloads_cancelados.
-    browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/cancelados')
+    browser.visit('https://.../impressoes/plotista/cancelados')
     browser.find_by_xpath('//*[@id="conteudo"]/form/fieldset/input').click()
 
     if browser.is_element_present_by_xpath('//*[@id="conteudo"]/div[2]/div[3]/div[2]/img'):
@@ -68,18 +68,18 @@ while True:
                         print('Não foi possivel mover arquivo {} para pasta de arquivos antigos.\n'.format(arquivo))
 
 
-    browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/pendentes')
+    browser.visit('https://.../impressoes/plotista/pendentes')
 
     # Testa para ver se o navegador ainda está na url de plotagens pendentes, se não estiver acessa novamente.
     if 'pendentes' in browser.url:
         browser.reload()
     else:
-        browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/login')
-        browser.fill('username', 'ucscampus8')
-        browser.fill('password', 'Pzt2Ytn236!')
+        browser.visit('https://.../impressoes/plotista/login')
+        browser.fill('username', 'username')
+        browser.fill('password', 'password')
         browser.find_by_name('login_copista').click()
         sleep(1)
-        browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/pendentes')
+        browser.visit('https://.../impressoes/plotista/pendentes')
     sleep(1)
 
     # Se essa frase não for encontrada no código da página quer dizer que tem plotagem pendente.
@@ -118,10 +118,10 @@ while True:
             nome = protocolo['arquivo'].lower() + '.pdf'
             nome = unidecode.unidecode(nome)          
             if nome not in arquivos_pendentes:
-                browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/{}'.format(numero))
+                browser.visit('https://.../impressoes/plotista/{}'.format(numero))
                 if 'Atenção! O total do documento excede a cota restante.' not in browser.html:
-                    browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/{}/download/{}'.format(numero, nome))
-        browser.visit('https://ucsvirtual.ucs.br/impressoes/plotista/pendentes')
+                    browser.visit('https://.../impressoes/plotista/{}/download/{}'.format(numero, nome))
+        browser.visit('https://.../impressoes/plotista/pendentes')
         
         # Toca o alarme avisando que tem plotagem pendente.
         winsound.PlaySound('C:/Plotagem/ver_pendentes/plotagem_pendente.wav', winsound.SND_FILENAME)
